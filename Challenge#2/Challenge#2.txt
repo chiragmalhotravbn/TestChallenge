@@ -1,0 +1,25 @@
+# Authenticate to your Azure account
+Connect-AzAccount
+
+# Get a list of all VMs across all subscriptions
+try {
+    $allVMs = Get-AzVM
+    if ($allVMs -eq $null) {
+        Write-Host "No VMs found in your Azure subscriptions."
+    } else {
+        # Loop through the VMs and display metadata
+        foreach ($vm in $allVMs) {
+            Write-Host "VM Name: $($vm.Name)"
+            Write-Host "Resource Group: $($vm.ResourceGroupName)"
+            Write-Host "Location: $($vm.Location)"
+            Write-Host "VM Size: $($vm.HardwareProfile.VmSize)"
+            Write-Host "Computer Name: $($vm.OSProfile.ComputerName)"
+            Write-Host "Admin Username: $($vm.OSProfile.AdminUsername)"
+            Write-Host "SSH Public Keys: $($vm.OSProfile.LinuxConfiguration.SSH.PublicKeys)"
+            Write-Host "Network Interface ID: $($vm.NetworkProfile.NetworkInterfaces[0].Id)"
+            Write-Host "-----------------------------"
+        }
+    }
+} catch {
+    Write-Host "An error occurred: $($_.Exception.Message)"
+}

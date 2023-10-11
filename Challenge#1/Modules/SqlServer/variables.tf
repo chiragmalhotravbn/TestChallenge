@@ -1,0 +1,11 @@
+variable "region" {}
+variable "rg_name" {}
+variable "Tags" {}
+variable "Sql_Password" {}
+variable "subnet_id" {}
+variable "SQL_Server_Name" {}
+variable "SQL_Database_Name" {}
+variable "Group_username" {}
+variable "Group_object_id" {}
+variable "Storage_SQL_Backup_Name" {}
+variable "workspace_id" {}

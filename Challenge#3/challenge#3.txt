@@ -1,0 +1,28 @@
+function Get-NestedValue {
+    param (
+        [Parameter(Mandatory=$true)]
+        [object]$Object,
+        
+        [Parameter(Mandatory=$true)]
+        [string]$Key
+    )
+    
+    $keys = $Key -split '/'
+    $result = $Object
+
+    foreach ($k in $keys) {
+        if ($result -is [System.Collections.IDictionary]) {
+            if ($result.ContainsKey($k)) {
+                $result = $result[$k]
+            } else {
+                $result = $null  # Key not found in the object
+                break
+            }
+        } else {
+            $result = $null  # Key not found in the object
+            break
+        }
+    }
+
+    return $result
+}
